@@ -1,2 +1,2 @@
-# python-postgressql
+# python-neon-postgres
 server
