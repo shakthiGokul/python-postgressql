@@ -9,8 +9,15 @@ from server.models.customers_model import Customers  # noqa: F401  (registers th
 from server.api.v1.customers_api import router as Customers_router
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Tables are managed by Alembic now, so nothing to create on startup.
+    yield
+    # Shutdown: close every pooled connection to Neon cleanly.
+    engine.dispose()
 
-app = FastAPI(title="CRM")
+
+app = FastAPI(title="CRM", lifespan=lifespan)
 app.include_router(Customers_router)
 
 @app.get("/health")
