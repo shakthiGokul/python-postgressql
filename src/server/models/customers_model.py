@@ -16,9 +16,9 @@ class Customers(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
-    updated_at : Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-        )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
 
     def __repr__(self) -> str:
-        return f"User(customer_id={self.customer_id}, email_id={self.email_id!r})"
+        return f"Customers(customer_id={self.customer_id}, email_id={self.email_id!r})"
