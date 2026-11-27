@@ -1,13 +1,13 @@
 from typing import Annotated
 
-from fastapi import APIRouter , Depends , HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 from server.db.session import get_session
 from server.models.customers_model import Customers
-from server.schemas.customers_schema import CreateCustomer , UpdateCustomer , CustomerOut
+from server.schemas.customers_schema import CreateCustomer, CustomerOut
 
 router = APIRouter(prefix='/customers' , tags=["customers"])
 
@@ -24,7 +24,7 @@ def commit_or_409(session: Session) -> None:
         session.commit()
     except IntegrityError:
         session.rollback()
-        raise HTTPException(status.HTTP_409_CONFLICT , "email already exist")  
+        raise HTTPException(status.HTTP_409_CONFLICT , "email already exist") from None
 
 @router.post("/create" , response_model= CustomerOut , status_code=status.HTTP_201_CREATED) 
 def create_customer(data: CreateCustomer , session: SessionDep):

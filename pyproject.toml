@@ -18,3 +18,16 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-name = "server"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.17.6",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+# E/F: errors and unused code, I: import sorting, UP: modern Python syntax, B: likely bugs
+select = ["E", "F", "I", "UP", "B"]

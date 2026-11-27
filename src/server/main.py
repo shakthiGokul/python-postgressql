@@ -1,12 +1,11 @@
-import uvicorn
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from sqlalchemy import inspect, text
-from server.db.base import Base
+import uvicorn
+from fastapi import FastAPI
+
+from server.api.v1.customers_api import router as Customers_router
 from server.db.engine import engine
 from server.models.customers_model import Customers  # noqa: F401  (registers the customers table with Base)
-from server.api.v1.customers_api import router as Customers_router
 
 
 @asynccontextmanager
